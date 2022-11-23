@@ -14,7 +14,11 @@ import (
 	"github.com/use-go/onvif/media"
 )
 
-func InitIpc(config VideoConfig) (*goonvif.Device, error) {
+type DeviceServer struct {
+	*goonvif.Device
+}
+
+func InitIpc(config VideoConfig) (*DeviceServer, error) {
 	dev, err := goonvif.NewDevice(goonvif.DeviceParams{
 		Xaddr:      fmt.Sprintf("%s:%d", config.IP, config.Port),
 		Username:   config.UserName,
@@ -24,13 +28,14 @@ func InitIpc(config VideoConfig) (*goonvif.Device, error) {
 	if err != nil {
 		return nil, err
 	}
-	// register pzt
-	return dev, nil
+	out := &DeviceServer{}
+	out.Device = dev
+	return out, nil
 }
 
-func InitShotUri(dev *goonvif.Device, config VideoConfig) error {
+func InitShotUri(devServer *DeviceServer, config VideoConfig) error {
 	ctx := context.Background()
-	resp, err := sdkMedia.Call_GetSnapshotUri(ctx, dev, media.GetSnapshotUri{})
+	resp, err := sdkMedia.Call_GetSnapshotUri(ctx, devServer.Device, media.GetSnapshotUri{})
 	if err != nil {
 		return err
 	}

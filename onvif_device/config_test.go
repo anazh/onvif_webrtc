@@ -1,10 +1,6 @@
 package onvif_device
 
-import (
-	"github.com/use-go/onvif"
-)
-
-func getTestConfig() *onvif.Device {
+func getTestConfig() *DeviceServer {
 	v := VideoConfig{
 		IP:       "b.nps.kyunmao.com",
 		Port:     82,

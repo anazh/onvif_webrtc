@@ -19,7 +19,7 @@ func main() {
 	if err != nil {
 		g.Log().Warning(context.Background(), err)
 	}
-	vc, err := onvif_device.DeviceAllPoints(dev, "Profile_1")
+	vc, err := onvif_device.DeviceAllPoints(dev.Device, "Profile_1")
 	if err != nil {
 		g.Log().Warning(context.Background(), err)
 	}

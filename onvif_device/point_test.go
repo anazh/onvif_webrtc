@@ -4,7 +4,7 @@ import "testing"
 
 func TestDeviceAllPoints(t *testing.T) {
 	dev := getTestConfig()
-	points, err := DeviceAllPoints(dev, "Profile_1")
+	points, err := DeviceAllPoints(dev.Device, "Profile_1")
 	if err != nil {
 		t.Error(err)
 	}
@@ -15,7 +15,7 @@ func TestDeviceAllPoints(t *testing.T) {
 
 func TestDelPoint(t *testing.T) {
 	dev := getTestConfig()
-	err := DelPoint(dev, "Profile_1", "12")
+	err := DelPoint(dev.Device, "Profile_1", "12")
 	if err != nil {
 		t.Error(err)
 	}
@@ -23,7 +23,7 @@ func TestDelPoint(t *testing.T) {
 
 func TestSetPoint(t *testing.T) {
 	dev := getTestConfig()
-	_, err := SetPoint(dev, "Profile_1", "12", "12")
+	_, err := SetPoint(dev.Device, "Profile_1", "12", "12")
 	if err != nil {
 		t.Error(err)
 	}
@@ -31,7 +31,7 @@ func TestSetPoint(t *testing.T) {
 
 func TestGotoPoint(t *testing.T) {
 	dev := getTestConfig()
-	err := GoToPoint(dev, "Profile_1", "12")
+	err := GoToPoint(dev.Device, "Profile_1", "12")
 	if err != nil {
 		t.Error(err)
 	}

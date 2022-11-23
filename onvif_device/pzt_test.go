@@ -8,14 +8,14 @@ import (
 
 func TestRelativeMoveUp(t *testing.T) {
 	dev := getTestConfig()
-	err := RelativeMoveUp(dev, "Profile_1", 1)
+	err := RelativeMoveUp(dev.Device, "Profile_1", 1)
 	if err != nil {
 		t.Error(err)
 	}
 }
 func TestRelativeMoveLow(t *testing.T) {
 	dev := getTestConfig()
-	err := RelativeMoveLow(dev, "Profile_1", 1)
+	err := RelativeMoveLow(dev.Device, "Profile_1", 1)
 	if err != nil {
 		t.Error(err)
 	}
@@ -23,21 +23,21 @@ func TestRelativeMoveLow(t *testing.T) {
 
 func TestRelativeMoveRight(t *testing.T) {
 	dev := getTestConfig()
-	err := RelativeMoveRight(dev, "Profile_1", 1)
+	err := RelativeMoveRight(dev.Device, "Profile_1", 1)
 	if err != nil {
 		t.Error(err)
 	}
 }
 func TestRelativeMoveClose(t *testing.T) {
 	dev := getTestConfig()
-	err := RelativeMoveClose(dev, "Profile_1", 1)
+	err := RelativeMoveClose(dev.Device, "Profile_1", 1)
 	if err != nil {
 		t.Error(err)
 	}
 }
 func TestRelativeMoveFar(t *testing.T) {
 	dev := getTestConfig()
-	err := RelativeMoveFar(dev, "Profile_1", 1)
+	err := RelativeMoveFar(dev.Device, "Profile_1", 1)
 	if err != nil {
 		t.Error(err)
 	}
@@ -45,24 +45,24 @@ func TestRelativeMoveFar(t *testing.T) {
 
 func TestContinuMove(t *testing.T) {
 	dev := getTestConfig()
-	ContinuousMoveRight(dev, "Profile_1", 1)
+	ContinuousMoveRight(dev.Device, "Profile_1", 1)
 	time.Sleep(3 * time.Second)
-	ContinuousMoveLeft(dev, "Profile_1", 1)
+	ContinuousMoveLeft(dev.Device, "Profile_1", 1)
 	time.Sleep(3 * time.Second)
-	ContinuousMoveUp(dev, "Profile_1", 1)
+	ContinuousMoveUp(dev.Device, "Profile_1", 1)
 	time.Sleep(3 * time.Second)
-	ContinuousMoveLow(dev, "Profile_1", 1)
+	ContinuousMoveLow(dev.Device, "Profile_1", 1)
 	time.Sleep(3 * time.Second)
-	ContinuousMoveClose(dev, "Profile_1", 1)
+	ContinuousMoveClose(dev.Device, "Profile_1", 1)
 	time.Sleep(3 * time.Second)
-	ContinuousMoveFar(dev, "Profile_1", 1)
+	ContinuousMoveFar(dev.Device, "Profile_1", 1)
 	time.Sleep(3 * time.Second)
-	StopMove(dev, "Profile_1")
+	StopMove(dev.Device, "Profile_1")
 }
 
 func TestGetStatus(t *testing.T) {
 	dev := getTestConfig()
-	data, err := PztStatus(dev, "Profile_1")
+	data, err := PztStatus(dev.Device, "Profile_1")
 	if err != nil {
 		t.Error(err)
 	}
