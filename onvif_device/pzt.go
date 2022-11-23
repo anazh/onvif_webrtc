@@ -19,6 +19,17 @@ type move struct {
 	z           float64
 }
 
+// 速度转换
+// 1-7 => 0.1-0.7
+func ptzSpeed(speed int) float64 {
+	if speed < 1 {
+		speed = 1
+	} else if speed > 7 {
+		speed = 7
+	}
+	return float64(speed) / 10
+}
+
 // 目前位置
 func PztStatus(dev *onvif.Device, profileName string) (ptz.GetStatusResponse, error) {
 	resp, err := dev.CallMethod(ptz.GetStatus{ //相对移动
@@ -83,66 +94,66 @@ func continueMove(m move) error {
 	return err
 }
 
-func ContinuousMoveUp(dev *onvif.Device, profileName string) error {
+func ContinuousMoveUp(dev *onvif.Device, profileName string, speed int) error {
 	m := move{
 		dev:         dev,
 		profileName: profileName,
 		x:           0,
-		y:           0.3,
+		y:           ptzSpeed(speed),
 		z:           0,
 	}
 	return continueMove(m)
 }
 
-func ContinuousMoveLow(dev *onvif.Device, profileName string) error {
+func ContinuousMoveLow(dev *onvif.Device, profileName string, speed int) error {
 	m := move{
 		dev:         dev,
 		profileName: profileName,
 		x:           0,
-		y:           -0.3,
+		y:           -ptzSpeed(speed),
 		z:           0,
 	}
 	return continueMove(m)
 }
 
-func ContinuousMoveRight(dev *onvif.Device, profileName string) error {
+func ContinuousMoveRight(dev *onvif.Device, profileName string, speed int) error {
 	m := move{
 		dev:         dev,
 		profileName: profileName,
-		x:           0.3,
+		x:           ptzSpeed(speed),
 		y:           0,
 		z:           0,
 	}
 	return continueMove(m)
 }
 
-func ContinuousMoveLeft(dev *onvif.Device, profileName string) error {
+func ContinuousMoveLeft(dev *onvif.Device, profileName string, speed int) error {
 	m := move{
 		dev:         dev,
 		profileName: profileName,
-		x:           -0.3,
+		x:           -ptzSpeed(speed),
 		y:           0,
 		z:           0,
 	}
 	return continueMove(m)
 }
-func ContinuousMoveClose(dev *onvif.Device, profileName string) error {
+func ContinuousMoveClose(dev *onvif.Device, profileName string, speed int) error {
 	m := move{
 		dev:         dev,
 		profileName: profileName,
 		x:           0,
 		y:           0,
-		z:           0.1,
+		z:           ptzSpeed(speed),
 	}
 	return continueMove(m)
 }
-func ContinuousMoveFar(dev *onvif.Device, profileName string) error {
+func ContinuousMoveFar(dev *onvif.Device, profileName string, speed int) error {
 	m := move{
 		dev:         dev,
 		profileName: profileName,
 		x:           0,
 		y:           0,
-		z:           -0.1,
+		z:           -ptzSpeed(speed),
 	}
 	return continueMove(m)
 }
@@ -173,35 +184,35 @@ func relativeMove(m move) error {
 }
 
 // 向上移动
-func RelativeMoveUp(dev *onvif.Device, profileName string) error {
+func RelativeMoveUp(dev *onvif.Device, profileName string, speed int) error {
 	m := move{
 		dev:         dev,
 		profileName: profileName,
 		x:           0,
-		y:           0.1,
+		y:           ptzSpeed(speed),
 		z:           0,
 	}
 	return relativeMove(m)
 }
 
 // 向下移动
-func RelativeMoveLow(dev *onvif.Device, profileName string) error {
+func RelativeMoveLow(dev *onvif.Device, profileName string, speed int) error {
 	m := move{
 		dev:         dev,
 		profileName: profileName,
 		x:           0,
-		y:           -0.1,
+		y:           -ptzSpeed(speed),
 		z:           0,
 	}
 	return relativeMove(m)
 }
 
 // 向右移动
-func RelativeMoveRight(dev *onvif.Device, profileName string) error {
+func RelativeMoveRight(dev *onvif.Device, profileName string, speed int) error {
 	m := move{
 		dev:         dev,
 		profileName: profileName,
-		x:           0.1,
+		x:           ptzSpeed(speed),
 		y:           0,
 		z:           0,
 	}
@@ -209,11 +220,11 @@ func RelativeMoveRight(dev *onvif.Device, profileName string) error {
 }
 
 // 向左移动
-func RelativeMoveLeft(dev *onvif.Device, profileName string) error {
+func RelativeMoveLeft(dev *onvif.Device, profileName string, speed int) error {
 	m := move{
 		dev:         dev,
 		profileName: profileName,
-		x:           -0.1,
+		x:           -ptzSpeed(speed),
 		y:           0,
 		z:           0,
 	}
@@ -221,27 +232,25 @@ func RelativeMoveLeft(dev *onvif.Device, profileName string) error {
 }
 
 // 放大焦距
-func RelativeMoveClose(dev *onvif.Device, profileName string) error {
+func RelativeMoveClose(dev *onvif.Device, profileName string, speed int) error {
 	m := move{
 		dev:         dev,
 		profileName: profileName,
 		x:           0,
 		y:           0,
-		z:           0.1,
+		z:           ptzSpeed(speed),
 	}
 	return relativeMove(m)
 }
 
 // 缩小焦距
-func RelativeMoveFar(dev *onvif.Device, profileName string) error {
+func RelativeMoveFar(dev *onvif.Device, profileName string, speed int) error {
 	m := move{
 		dev:         dev,
 		profileName: profileName,
 		x:           0,
 		y:           0,
-		z:           -0.1,
+		z:           -ptzSpeed(speed),
 	}
 	return relativeMove(m)
 }
-
-// 目的地移动
