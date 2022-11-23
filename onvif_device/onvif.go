@@ -16,6 +16,7 @@ import (
 
 type DeviceServer struct {
 	*goonvif.Device
+	ProfileToken string
 }
 
 func InitIpc(config VideoConfig) (*DeviceServer, error) {
@@ -30,6 +31,7 @@ func InitIpc(config VideoConfig) (*DeviceServer, error) {
 	}
 	out := &DeviceServer{}
 	out.Device = dev
+	out.ProfileToken = config.ProfileToken
 	return out, nil
 }
 
