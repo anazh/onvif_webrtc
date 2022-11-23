@@ -23,10 +23,12 @@ func getSnapShotUri(ip string, port int) string {
 	return ""
 }
 
-func DoShot(ip string, port int, localFile string) {
+// when this return "" , you need to init shot url
+func DoShot(ip string, port int, localFile string) string {
 	url := getSnapShotUri(ip, port)
 	if url != "" {
 		data := ghttp.GetBytes(url)
 		gfile.PutBytes(localFile, data)
 	}
+	return url
 }
