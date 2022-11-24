@@ -1,10 +1,12 @@
 package onvif_device
 
 import (
+	"context"
 	"sync"
+	"time"
 
-	"github.com/gogf/gf/net/ghttp"
-	"github.com/gogf/gf/os/gfile"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gfile"
 )
 
 // get img by onvif
@@ -27,7 +29,7 @@ func getSnapShotUri(ip string, port int) string {
 func DoShot(ip string, port int, localFile string) string {
 	url := getSnapShotUri(ip, port)
 	if url != "" {
-		data := ghttp.GetBytes(url)
+		data := g.Client().SetTimeout(5*time.Second).GetBytes(context.Background(), url)
 		gfile.PutBytes(localFile, data)
 	}
 	return url
